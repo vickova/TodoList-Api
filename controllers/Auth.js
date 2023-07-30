@@ -10,7 +10,6 @@ exports.RegisterUser =async (req,res)=>{
     // console.log(hashedpassword)
     const user = await User.create({...req.body})
     const token = user.createJWT();
-    console.log(token)
     res.status(StatusCodes.OK).json({
         name: user.name,
         email: user.email

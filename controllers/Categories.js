@@ -4,10 +4,8 @@ const {NotFound, BadRequest} = require('../errors');
 const Tasks = require('../models/Tasks');
 
 exports.getAllCategories =async (req, res)=>{
-    console.log(req.user)
     try {
         const categories = await CategoriesSchema.find({createdBy:req.user.userId}).sort('createdAt');
-    console.log(categories)
     res.status(StatusCodes.OK).send({...categories})
     } catch (error) {
         res.status(StatusCodes.BAD_REQUEST).send('User already exist')
@@ -16,16 +14,12 @@ exports.getAllCategories =async (req, res)=>{
 
 exports.CreateCategory =async (req,res)=>{
     req.body.createdBy = req.user.userId;
-    console.log(req.body)
     const createdCategories = await CategoriesSchema.create(req.body);
     res.status(StatusCodes.CREATED).json({createdCategories})
 }
 
 exports.getCategory =async (req, res)=>{
-    console.log(req.params)
-    console.log(req.user)
     const searchquery =  req.user.name;
-    console.log(searchquery)
     const category = await CategoriesSchema.findOne({_id:req.params.id, createdBy:req.user.userId});
     const tasks = await Tasks.find({category:req.params.id, createdBy:req.user.userId})
     if(!category || !tasks){
