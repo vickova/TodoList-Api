@@ -1,5 +1,6 @@
 const Task = require('../models/Tasks');
-const {StatusCodes} = require('http-status-codes')
+const {StatusCodes} = require('http-status-codes');
+const {NotFound} = require('../errors')
 
 
 exports.getAllTasks =async (req, res)=>{
