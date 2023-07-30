@@ -1,11 +1,11 @@
-const { NotFound } = require('../errors');
 const Task = require('../models/Tasks');
-const mongoose = require('mongoose');
+const {StatusCodes} = require('http-status-codes')
+
 
 exports.getAllTasks =async (req, res)=>{
         const tasks = await Task.find({createdBy:req.user.userId}).sort('createdAt');
         if(!tasks){
-            throw new NotFound('No tasks here yet')
+            throw new NotFound('No tasks yet')
         }
         console.log(tasks)
         res.status(StatusCodes.OK).send({...tasks})
