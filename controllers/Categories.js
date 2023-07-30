@@ -8,7 +8,7 @@ exports.getAllCategories =async (req, res)=>{
         const categories = await CategoriesSchema.find({createdBy:req.user.userId}).sort('createdAt');
     res.status(StatusCodes.OK).send({...categories})
     } catch (error) {
-        res.status(StatusCodes.BAD_REQUEST).send('User already exist')
+        res.status(StatusCodes.BAD_REQUEST).send('There are no categories yet')
     }
 }
 
