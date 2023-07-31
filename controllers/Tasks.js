@@ -28,7 +28,7 @@ exports.deleteTask =async (req, res)=>{
     }
     res.send('Category deleted')
 }
-exports.updateTask =async (req, res)=>{d;
+exports.updateTask =async (req, res)=>{
     const tasks = await Task.findByIdAndUpdate({
         _id:req.params.id,createdBy:req.user.userId},req.body,{new:true, runValidators:true}
     )    
