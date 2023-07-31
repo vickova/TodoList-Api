@@ -26,7 +26,7 @@ exports.deleteTask =async (req, res)=>{
     if(!tasks){
         throw new NotFound(`task not found`)
     }
-    res.send('Category deleted')
+    res.send('Task deleted')
 }
 exports.updateTask =async (req, res)=>{
     const tasks = await Task.findByIdAndUpdate({
