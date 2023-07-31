@@ -16,9 +16,9 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 
 // security packages
-// const helmet = require('helmet')
-// const cors = require('cors')
-// const xss = require('xss-clean');
+const helmet = require('helmet')
+const cors = require('cors')
+const xss = require('xss-clean');
 // const rateLimiter = require('express-rate-limit');
 
 // app.set('trust proxy', 1)
