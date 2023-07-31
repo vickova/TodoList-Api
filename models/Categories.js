@@ -10,14 +10,10 @@ const CategoriesSchema = mongoose.Schema({
         maxLength:50,
         required:[true, 'please decsribe your task']
     },
+    
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 }, {timestamps: true})
 
 
-// CategoriesSchema.pre('save', function (next) {
-//     if (this.isModified('name')) {
-//       this.normalizedTitle = this.name.toLowerCase(); // Convert the title to lowercase and store in normalizedTitle
-//     }
-//     next();
-//   });
+
 module.exports = mongoose.model('Categories',CategoriesSchema);
