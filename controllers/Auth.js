@@ -11,8 +11,7 @@ exports.RegisterUser =async (req,res)=>{
     const user = await User.create({...req.body})
     const token = user.createJWT();
     res.status(StatusCodes.OK).json({
-        name: user.name,
-        email: user.email
+        user: { name: user.name }, token 
     });
 }
 exports.LoginUser =async (req, res)=>{
