@@ -1,0 +1,395 @@
+openapi: 3.0.0
+info:
+  title: TodoList Api
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://todo-list-api-8vwz.onrender.com/api/v1
+  variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RegisterUserRequest'
+              - example:
+                  name: Aderonke
+                  email: aderonke@gmail.com
+                  password: secret
+            example:
+              name: Aderonke
+              email: aderonke@gmail.com
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginUserRequest'
+              - example:
+                  name: Aderonke
+                  email: aderonke@gmail.com
+                  password: secret
+            example:
+              name: Aderonke
+              email: aderonke@gmail.com
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /categories:
+    get:
+      tags:
+      - Categories
+      summary: GetAllCategories
+      operationId: GetAllCategories
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    post:
+      tags:
+      - Categories
+      summary: CreateNewCategory
+      operationId: CreateNewCategory
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateNewCategoryRequest'
+              - example:
+                  name: School
+                  description: Everything pertaining to  my school goes here
+            example:
+              name: School
+              description: Everything pertaining to  my school goes here
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /categories/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          description: The category Id
+          required: true
+          schema:
+            type: string
+      tags:
+      - Categories
+      summary: GetSingleCategory
+      operationId: GetSingleCategory
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    patch:
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      tags:
+      - Categories
+      summary: UpdateCategory
+      operationId: UpdateCategory
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateCategoryRequest'
+              - example:
+                  name: career
+                  description: All thing pertainig to my programming jouney
+            example:
+              name: career
+              description: All thing pertainig to my programming jouney
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      tags:
+      - Categories
+      summary: DeleteCategories
+      operationId: DeleteCategories
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    post:
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      tags:
+      - Categories
+      summary: CreateTaskCategory
+      operationId: CreateTaskCategory
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateTaskCategoryRequest'
+              - example:
+                  title: Adjust the book
+                  description: adjust my school book
+                  dueDate: 8/01/2023
+            example:
+              title: Adjust the book
+              description: adjust my school book
+              dueDate: 8/01/2023
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /tasks:
+    get:
+      tags:
+      - Tasks
+      summary: GetAllTasks
+      operationId: GetAllTasks
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /tasks/{id}:
+    patch:
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      tags:
+      - Tasks
+      summary: UpdateTask
+      operationId: UpdateTask
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateTaskRequest'
+              - example:
+                  title: Adjust the hook
+                  description: adjust my fishing boat
+                  status: completed
+            example:
+              title: Adjust the hook
+              description: adjust my fishing boat
+              status: completed
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      tags:
+      - Tasks
+      summary: DeleteTasks
+      operationId: DeleteTasks
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: Aderonke
+        email: aderonke@gmail.com
+        password: secret
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: Aderonke
+        email: aderonke@gmail.com
+        password: secret
+    CreateNewCategoryRequest:
+      title: CreateNewCategoryRequest
+      required:
+      - name
+      - description
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+      example:
+        name: School
+        description: Everything pertaining to  my school goes here
+    UpdateCategoryRequest:
+      title: UpdateCategoryRequest
+      required:
+      - name
+      - description
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+      example:
+        name: career
+        description: All thing pertainig to my programming jouney
+    CreateTaskCategoryRequest:
+      title: CreateTaskCategoryRequest
+      required:
+      - title
+      - description
+      - dueDate
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        dueDate:
+          type: string
+      example:
+        title: Adjust the book
+        description: adjust my school book
+        dueDate: 8/01/2023
+    UpdateTaskRequest:
+      title: UpdateTaskRequest
+      required:
+      - title
+      - description
+      - status
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+      example:
+        title: Adjust the hook
+        description: adjust my fishing boat
+        status: completed
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Misc
+  description: ''
+- name: Auth
+  description: ''
+- name: Categories
+  description: ''
+- name: Tasks
+  description: ''

@@ -12,20 +12,25 @@ const ErrorHandler = require('./middleware/errorhandler');
 const AuthenticationHandler = require('./middleware/authentication');
 const AccessControl = require('./middleware/access-control')
 
+// Swagger
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml')
+
+
 
 // security packages
 const helmet = require('helmet')
 const cors = require('cors')
 const xss = require('xss-clean');
-// const rateLimiter = require('express-rate-limit');
+const rateLimiter = require('express-rate-limit');
 
-// app.set('trust proxy', 1)
-// const Limiter = rateLimiter({
-// 	windowMs: 15 * 60 * 1000, // 15 minutes
-// 	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-// })
+app.set('trust proxy', 1)
+const Limiter = rateLimiter({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+})
 
 // app.use(Limiter())
 
@@ -35,34 +40,13 @@ app.use(cors());
 app.use(xss());
 
 app.get('/', (req, res)=>{
-    res.send('<h1>TodoList API</h1><a href="?api/v1/todos">tasks route<a>').status(200)
-    console.log('Yes')
+    res.send('<h1>TodoList API</h1><a href="/api-docs">Documenation<a>').status(200)
 })
 
-// const swaggerOptions = {
-//   definition: {
-//     openapi: '3.0.0', // OpenAPI version (required)
-//     info: {
-//       title: 'To-do List API', // API title (required)
-//       version: '1.0.0', // API version (required)
-//       description: 'Your API description',
-//     },
-//     contact: {
-//       name: "LogRocket",
-//       url: "https://logrocket.com",
-//       email: "info@email.com",
-//     },
-//     servers: [
-//       {
-//         url: "http://localhost:3000/api/v1",
-//       },
-//     ],
-//   },
-//   apis: ['./routes/*.js'], // Location of API route files
-// };
 
 // const swaggerSpec = swaggerJsdoc(swaggerOptions);
-// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/api/v1/auth', AuthRoute);
 app.use('/api/v1/categories', AuthenticationHandler, ListRouter);
