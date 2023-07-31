@@ -11,18 +11,13 @@ const CategoriesSchema = mongoose.Schema({
         required:[true, 'please decsribe your task']
     },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    normalizedTitle:{
-        type:String,
-        unique:[true, 'This category already exist'],
-        index:true
-    }
 }, {timestamps: true})
 
 
-CategoriesSchema.pre('save', function (next) {
-    if (this.isModified('name')) {
-      this.normalizedTitle = this.name.toLowerCase(); // Convert the title to lowercase and store in normalizedTitle
-    }
-    next();
-  });
+// CategoriesSchema.pre('save', function (next) {
+//     if (this.isModified('name')) {
+//       this.normalizedTitle = this.name.toLowerCase(); // Convert the title to lowercase and store in normalizedTitle
+//     }
+//     next();
+//   });
 module.exports = mongoose.model('Categories',CategoriesSchema);
