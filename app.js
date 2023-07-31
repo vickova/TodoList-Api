@@ -10,6 +10,7 @@ const connectDb = require('./db/connect');
 const NotFound = require('./middleware/notFound');
 const ErrorHandler = require('./middleware/errorhandler');
 const AuthenticationHandler = require('./middleware/authentication');
+const AccessControl = require('./middleware/access-control')
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
@@ -67,6 +68,7 @@ app.use('/api/v1/auth', AuthRoute);
 app.use('/api/v1/categories', AuthenticationHandler, ListRouter);
 app.use('/api/v1/tasks',AuthenticationHandler, TodoRouter)
 
+app.use(AccessControl)
 app.use(NotFound)
 app.use(ErrorHandler)
 
