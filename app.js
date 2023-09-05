@@ -22,7 +22,11 @@ const swaggerDocument = YAML.load('./swagger.yaml')
 
 // security packages
 const helmet = require('helmet')
-const cors = require('cors')
+app.use(cors({
+    origin: 'http://localhost:3000'|'*',
+    credentials: true,
+    methods: ['POST', 'GET', 'PATCH', 'DELETE']
+}))
 const xss = require('xss-clean');
 const rateLimiter = require('express-rate-limit');
 
