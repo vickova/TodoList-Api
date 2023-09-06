@@ -21,9 +21,10 @@ const swaggerDocument = YAML.load('./swagger.yaml')
 
 
 // security packages
-const helmet = require('helmet')
+const helmet = require('helmet');
+const cors = require('cors')
 app.use(cors({
-    origin: 'http://localhost:3000'|'*',
+    origin: ['http://localhost:3000', 'https://todo-list-api-8vwz.onrender.com/api/v1'],
     credentials: true,
     methods: ['POST', 'GET', 'PATCH', 'DELETE']
 }))
