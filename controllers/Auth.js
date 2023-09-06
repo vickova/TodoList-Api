@@ -17,15 +17,15 @@ exports.RegisterUser =async (req,res)=>{
 exports.LoginUser =async (req, res)=>{
     const {name, email, password} = req.body;
     if(!email || !password){
-        throw new Unauthenticated('Please provide email and password');
+        throw new Unauthenticated('Please provide email and password', res);
     }
     const user = await User.findOne({email:email});
     if(!user){
-        throw new BadRequest('Invalid User');
+        throw new BadRequest('Invalid User', res);
     }
     const isPasswordCorrect = await user.comparePassword(password);
     if(!isPasswordCorrect){
-        throw new Unauthenticated('Password Incorrect')
+        throw new Unauthenticated('Password Incorrect', res)
     }
     const token = user.createJWT();
     res.status(StatusCodes.OK).json({user:{name:name, email:email},token: token})
