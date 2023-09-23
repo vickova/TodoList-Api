@@ -24,10 +24,14 @@ const swaggerDocument = YAML.load('./swagger.yaml')
 const helmet = require('helmet');
 const cors = require('cors')
 app.use(cors({
-    origin: ['http://localhost:3000'],
+    origin: '*',
     credentials: true,
     methods: ['POST', 'GET', 'PATCH', 'DELETE']
 }))
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+  });
 const xss = require('xss-clean');
 const rateLimiter = require('express-rate-limit');
 
