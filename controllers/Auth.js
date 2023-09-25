@@ -15,7 +15,7 @@ exports.RegisterUser =async (req,res)=>{
     });
 }
 exports.LoginUser =async (req, res)=>{
-    const {name, email, password} = req.body;
+    const {email, password} = req.body;
     if(!email || !password){
         throw new Unauthenticated('Please provide email and password', res);
     }
@@ -28,5 +28,5 @@ exports.LoginUser =async (req, res)=>{
         throw new Unauthenticated('Password Incorrect', res)
     }
     const token = user.createJWT();
-    res.status(StatusCodes.OK).json({user:{name:name, email:email},token: token})
+    res.status(StatusCodes.OK).json({user:{name:user.name, email:email},token: token})
 }
