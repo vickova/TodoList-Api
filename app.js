@@ -1,8 +1,8 @@
+require('dotenv').config();
+require('express-async-errors');
+
 const express = require('express');
 const app = express();
-require('dotenv').config();
-// require('express-async-errors');
-
 const AuthRoute = require('./routes/Auth');
 const ListRouter = require('./routes/Categories');
 const TodoRouter = require('./routes/Tasks');

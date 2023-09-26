@@ -1,7 +1,7 @@
 const {StatusCodes} = require('http-status-codes');
-const CustomApiError = require('./customerror');
+const CustomApIError = require('./customerror');
 
-class UnauthenticatedError extends CustomApiError{
+class UnauthenticatedError extends CustomApIError{
     constructor(message, res){
         super(message);
         this.statusCode = StatusCodes.UNAUTHORIZED;
